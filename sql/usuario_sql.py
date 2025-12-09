@@ -1,3 +1,8 @@
+import sqlite3
+
+conn = sqlite3.connect('seu_banco.db')
+cursor = conn.cursor()
+
 CRIAR_TABELA = """
 CREATE TABLE IF NOT EXISTS usuario (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -70,3 +75,13 @@ FROM usuario
 WHERE (LOWER(nome) LIKE LOWER(?) OR LOWER(email) LIKE LOWER(?))
 LIMIT ?
 """
+ALTERAR_PERFIL = """
+UPDATE usuario
+SET perfil = 'Administrador', data_atualizacao = CURRENT_TIMESTAMP
+WHERE email = ?
+"""
+
+cursor.execute(ALTERAR_PERFIL, ('admin@blog.com',))
+conn.commit()
+
+
