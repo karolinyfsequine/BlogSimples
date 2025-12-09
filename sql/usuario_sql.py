@@ -1,25 +1,3 @@
-import sqlite3
-from sql.usuario_sql import CRIAR_TABELA  # se você já tiver isso no seu projeto
-
-conn = sqlite3.connect('seu_banco.db')
-cursor = conn.cursor()
-
-# Criar tabela se não existir
-cursor.execute(CRIAR_TABELA)
-conn.commit()
-
-# Atualizar perfil do Admin
-ALTERAR_PERFIL = """
-UPDATE usuario
-SET perfil = 'Administrador', data_atualizacao = CURRENT_TIMESTAMP
-WHERE email = ?
-"""
-cursor.execute(ALTERAR_PERFIL, ('admin@blog.com',))
-conn.commit()
-conn.close()
-
-print("Perfil do Admin atualizado para Administrador!")
-
 CRIAR_TABELA = """
 CREATE TABLE IF NOT EXISTS usuario (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
